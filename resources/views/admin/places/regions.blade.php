@@ -65,7 +65,8 @@ Regions
                                         <tr>
                                             <td>{{ $region->id }}</td>
                                             <td>{{ $region->name }} </td>
-                                            <td> 
+                                            <td>
+                                                <a href="{!! URL::to('admin/places/'.encrypt($region->id).'/edit') !!}">[ edit ]</a>
                                                 <a href="{!! URL::to('admin/places/'.$region->id.'/delete') !!}">[ delete ]</a> 
                                                 <a href="{!! URL::to('admin/places/'.$region->id.'/districts') !!}">[ View Towns/districts ] </a>
                                             </td>

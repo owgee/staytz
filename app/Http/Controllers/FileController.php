@@ -22,7 +22,7 @@ class FileController extends JoshController {
      */
     public function store(FileUploadRequest $request)
     {
-        $destinationPath = '/uploads/files/';
+        $destinationPath = base_path() .'/uploads/files/';
 
         $file_temp = $request->file('file');
         $extension       = $file_temp->getClientOriginalExtension() ?: 'png';
@@ -48,7 +48,7 @@ class FileController extends JoshController {
      */
     public function postFilesCreate(FileUploadRequest $request)
     {
-        $destinationPath = public_path() . '/uploads/files/';
+        $destinationPath = base_path() .'/uploads/files/';
 
         $file_temp = $request->file('file');
         $extension  = $file_temp->getClientOriginalExtension() ?: 'png';

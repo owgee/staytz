@@ -203,9 +203,9 @@ class Application extends Controller
 
         $toz=Contact::where("type",2) //type=2, email
                     ->where("facility_id",$facility_id)
-                    ->get();
-        if(count($toz)>0){
-            $to=$toz[0];
+                    ->value('contact');
+        if($toz){
+            $to=$toz;
             $txt="Booking sent by Staytz app user\nName: $name\nPhone number: $user_phone_no\nE-mail : $user_email \n\nMessage :\n$user_message";
 
             $subject = self::EMAIL_SUBJECT;

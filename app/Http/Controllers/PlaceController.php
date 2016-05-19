@@ -6,6 +6,7 @@ use App\Models\District;
 use Illuminate\Http\Request;
 use Sentinel;
 use Illuminate\Http\Exception;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class PlaceController extends Controller
 {
@@ -35,9 +36,9 @@ class PlaceController extends Controller
         $region=new Region();
         $file_temp = $request->file('image');
         if($file_temp){
-            $destinationPath = public_path() . '/uploads/files/';
+            $destinationPath = base_path() .'/uploads/files/';
             $extension  = $file_temp->getClientOriginalExtension() ?: 'png';
-            $safeName   = $request->input('region_name').'.'.$extension;
+            $safeName   = str_replace(' ','',$request->input('region_name')).'.'.$extension;
             $file_temp->move($destinationPath, $safeName);
             $region->name=$request->input('region_name');
             $region->image_path=$safeName;
@@ -50,6 +51,8 @@ class PlaceController extends Controller
             return redirect('admin/places')->withInput()->with('error', 'No image selected');
         }
     }
+
+
 
 
     /**
@@ -102,6 +105,49 @@ class PlaceController extends Controller
         }
     }
 
+    public function editRegion($region_id){
+
+        try{
+            $region=Region::find(decrypt($region_id));
+        }catch(DecryptException $e){
+            return redirect('admin/places')->with('error', 'Nope! You can\'t do that ');
+        }
+        return view('admin.places.edit',['region'=>$region]);
+
+    }
+
+    public function updateRegion($region_id){
+
+
+        try{
+            $region_id = decrypt($region_id);
+
+        }catch(DecryptException $e){
+            return redirect('admin/places')->with('error', 'Nope! You can\'t do that ');
+        }
+
+        $region = Region::find($region_id);
+        $file_temp = request()->file('image');
+        $name = request()->input('region_name');
+        if($file_temp){
+            $destinationPath = base_path() .'/uploads/files/';
+            $extension  = $file_temp->getClientOriginalExtension() ?: 'png';
+            $safeName   = str_replace(' ','',request()->input('region_name')).'.'.$extension;
+            if (\Illuminate\Support\Facades\File::exists($destinationPath.$region->image_path))
+            unlink(base_path('uploads/files/'.$region->image_path));
+            $file_temp->move($destinationPath, $safeName);
+            $image_path=$safeName;
+            if (Region::where('id',$region_id)->update(['name'=>$name,'image_path'=>$image_path])){
+                return redirect('admin/places/'.encrypt($region_id).'/edit')->with('success', "Region successfully Updated");
+            } else {
+                return redirect('admin/places/'.encrypt($region_id).'/edit')->withInput()->with('error', 'Failed to update');
+            }
+        }elseif(Region::where('id',$region_id)->update(['name'=>$name])){
+            return redirect('admin/places/'.encrypt($region_id).'/edit')->with('success', "Region successfully Updated");
+        }
+        return redirect('admin/places/'.encrypt($region_id).'/edit')->withInput()->with('error', 'Failed to update');
+    }
+
     /**
      * Delete the given Driver.
      *
@@ -112,6 +158,7 @@ class PlaceController extends Controller
     $region=Region::find($region_id);
         try{
             $region->districts()->delete();
+            unlink(base_path('uploads/files/'.$region->image_path));
             if($region && $region->delete()){
                 return redirect('admin/places/')->with('success', 'Successfully deleted');
             }else{

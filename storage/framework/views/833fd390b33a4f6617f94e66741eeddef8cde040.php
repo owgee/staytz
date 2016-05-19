@@ -63,7 +63,8 @@ Regions
                                         <tr>
                                             <td><?php echo e($region->id); ?></td>
                                             <td><?php echo e($region->name); ?> </td>
-                                            <td> 
+                                            <td>
+                                                <a href="<?php echo URL::to('admin/places/'.encrypt($region->id).'/edit'); ?>">[ edit ]</a>
                                                 <a href="<?php echo URL::to('admin/places/'.$region->id.'/delete'); ?>">[ delete ]</a> 
                                                 <a href="<?php echo URL::to('admin/places/'.$region->id.'/districts'); ?>">[ View Towns/districts ] </a>
                                             </td>

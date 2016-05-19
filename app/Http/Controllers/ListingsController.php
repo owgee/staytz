@@ -8,6 +8,7 @@ use App\Models\FacilityType;
 use App\Models\Image;
 use App\Models\Contact;
 use App\Http\Requests;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Redirect;
 
 use App\File;
@@ -151,7 +152,7 @@ class ListingsController extends JoshController
      */
     public function store(Request $request)
     {
-        $destinationPath = public_path() . '/uploads/files/';
+        $destinationPath = base_path() . '/uploads/files/';
         $file_temp = $request->file('image');
         if($file_temp){
             $extension  = $file_temp->getClientOriginalExtension() ?: 'png';
@@ -245,7 +246,7 @@ class ListingsController extends JoshController
         $facility=Facility::find($request->input("facility_id"));
         $file_temp = $request->file('image');
         if($file_temp){
-            $destinationPath = public_path() . '/uploads/files/';
+            $destinationPath = base_path() . '/uploads/files/';
             $extension  = $file_temp->getClientOriginalExtension() ?: 'png';
             $safeName   = 'facilitymap_'.date("Ymdhis",time()).'.'.$extension;
             $file_temp->move($destinationPath, $safeName);
@@ -261,24 +262,28 @@ class ListingsController extends JoshController
 
         $email=$request->input('email');
         $website=$request->input('website');
-        if ($facility->update()){
-            $facility->contacts()->delete();
-            if (@count($email)>0) {
-                $c=new Contact(['type'=>2,'contact'=>$email]);
-                $facility->contacts()->save($c);
+        try {
+            if ($facility->update()) {
+                $facility->contacts()->delete();
+                if (@count($email) > 0) {
+                    $c = new Contact(['type' => 2, 'contact' => $email]);
+                    $facility->contacts()->save($c);
+                }
+                if (@count($website) > 0) {
+                    $c = new Contact(['type' => 3, 'contact' => $website]);
+                    $facility->contacts()->save($c);
+                }
+                $phone_nos = explode(",", $request->input('phone_nos'));
+                foreach ($phone_nos as $number) {
+                    $c = new Contact(['type' => 1, 'contact' => $number]);
+                    $facility->contacts()->save($c);
+                }
+                return redirect('admin/listings/' . $facility->id . '/view')->with('success', 'Changes were Successfully saved, please cross check');
+            } else {
+                return redirect('admin/listings/' . $facility->id . '/edit')->withInput()->with('error', "Failed to edit");
             }
-            if (@count($website)>0) {
-                $c=new Contact(['type'=>3,'contact'=>$website]);
-                $facility->contacts()->save($c);
-            }
-            $phone_nos=explode(",", $request->input('phone_nos'));
-            foreach ($phone_nos as $number) {
-                $c=new Contact(['type'=>1,'contact'=>$number]);
-                $facility->contacts()->save($c);
-            }
-            return redirect('admin/listings/'.$facility->id.'/view')->with('success', 'Changes were Successfully saved, please cross check');
-        }else {
-            return redirect('admin/listings/'.$facility->id.'/edit')->withInput()->with('error', "Failed to edit");
+        }catch(QueryException $e){
+            return redirect('admin/listings/' . $facility->id . '/edit')->withInput()->with('error', "Make sure to fill all the required fields");
         }
     }
 
@@ -292,9 +297,9 @@ class ListingsController extends JoshController
         $facility->images()->delete();
         $facility->contacts()->delete();
         if ($facility->delete()){
-            return redirect('admin/listings/all')->with('success', 'Deleted successfully');
+            return redirect('admin/listings/all')->with('success', $facility->name.' deleted successfully');
         }else {
-            return redirect('admin/listings/'.$facility->id.'/view')->withInput()->with('error', "Failed to edit");
+            return redirect('admin/listings/'.$facility->id.'/view')->withInput()->with('error', "Failed to delete");
         }
     }
 
@@ -364,10 +369,10 @@ class ListingsController extends JoshController
         if(isset($request->id)) {
             $upload = Image::find($request->id);
             $upload->delete();
-
-            unlink(base_path('uploads/files/'.$upload->path));
-            unlink(base_path('uploads/files/thumb_'.$upload->path));
-
+            if(\Illuminate\Support\Facades\File::exists(base_path('uploads/files/'.$upload->path))) {
+                unlink(base_path('uploads/files/' . $upload->path));
+                unlink(base_path('uploads/files/thumb_' . $upload->path));
+            }
             if(!isset(Image::find($request->id)->path)) {
                 $success = new stdClass();
                 $success->{$upload->path} = true;
@@ -376,21 +381,25 @@ class ListingsController extends JoshController
         }
     }
 
-    public function imageDeleteById(Request $request,$facility_id, $image_id)
+    public function imageDeleteById($facility_id, $image_id)
     {
+
         $upload = Image::find($image_id);
+        if($upload!=null){
         $upload->delete();
 
-        unlink(base_path('uploads/files/'.$upload->path));
-        unlink(base_path('uploads/files/thumb_'.$upload->path));
-
+        if(\Illuminate\Support\Facades\File::exists(base_path('uploads/files/'.$upload->path))) {
+            unlink(base_path('uploads/files/' . $upload->path));
+            unlink(base_path('uploads/files/thumb_' . $upload->path));
+        }
         if(!isset(Image::find($image_id)->path)) {
             $success = new stdClass();
             $success->{$upload->path} = true;
             return redirect('admin/listings/'.$facility_id.'/images')->with('success', 'Successfully deleted');
         }else{
             return redirect('admin/listings/'.$facility_id.'/images')->with('error', 'Does not exist');
-        }
+        }}
+        return redirect('admin/listings/'.$facility_id.'/images')->with('error', 'Image Does not exist');
     }
 
 

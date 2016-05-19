@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
 		
 		Route::group(array('prefix' => 'listings', 'middleware' => 'SentinelAdmin'), function () {
 	        Route::get('/', array('as' => 'listings', 'uses' => 'ListingsController@index'));
-	        Route::get('/all', array('as' => 'listings', 'uses' => 'ListingsController@index'));
+	        Route::get('/all/{id}', array('as' => 'listings', 'uses' => 'ListingsController@index'));
 			Route::get('/all/district/{id}', array('as' => 'listings', 'uses' => 'ListingsController@index'));
 	        Route::get('create', array('as' => 'create/listings', 'uses' => 'ListingsController@create'));
 	        Route::post('create', 'ListingsController@store');
@@ -76,6 +76,8 @@ Route::group(['middleware' => ['web']], function () {
 	        Route::get('/regions', array('as' => 'regions', 'uses' => 'PlaceController@index'));
 	        Route::post('/regions/create', array('as' => 'create/region', 'uses' => 'PlaceController@storeRegion'));
 	        Route::get('/{id}/delete', array('as' => 'region/delete', 'uses' => 'PlaceController@deleteRegion'));
+			Route::get('/{id}/edit', array('as' => 'region/edit', 'uses' => 'PlaceController@editRegion'));
+			Route::post('/{id}/edit', array('as' => 'region/edit', 'uses' => 'PlaceController@updateRegion'));
 	        Route::get('/{id}/districts', array('as' => 'districts', 'uses' => 'PlaceController@getDistricts'));
 	        Route::get('/{r_id}/district/{d_id}/delete', array('as' => 'districts', 'uses' => 'PlaceController@deleteDistrict'));
 	        Route::post('/districts/create', 'PlaceController@storeDistrict');
@@ -90,6 +92,7 @@ Route::group(['middleware' => ['web']], function () {
 
 		Route::group(array('prefix' => 'bookings', 'middleware' => 'SentinelAdmin'), function () {
 	        Route::get('/', array('as' => 'bookings', 'uses' => 'BookingController@index'));
+			//Route::get('/{id}/delete', array('as' => 'bookings/delete', 'uses' => 'BookingController@delete'));
 		});
 
 		# Error pages should be shown without requiring login

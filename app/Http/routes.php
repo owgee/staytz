@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+ Route::get('/send_message','Application@send_message');
 
 # End of frontend views
 

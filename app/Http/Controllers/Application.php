@@ -193,6 +193,8 @@ class Application extends Controller
 
     public function book(Request $request)
     {
+
+        $karibu_sms = new \karibusms();
         $user_email = $request->input("email"); 
         $user_phone_no = $request->input("phoneNo");
         $name = $request->input("name");
@@ -214,6 +216,7 @@ class Application extends Controller
             if ($result) {
                 $booking->status=1;
                 $booking->save();
+                $karibu_sms->send_sms($user_phone_no,$txt);
                 return ["response"=>"ok","content"=>"success"];
             }else{
                 $booking->save();
@@ -224,5 +227,7 @@ class Application extends Controller
         $booking->save();
         return ["response"=>"failed","content"=>"failed! Service not supported (no email address)"];
     }
+
+
 
 }

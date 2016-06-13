@@ -61,6 +61,7 @@ Regions
                                             <th>Message</th>
                                             <th>Date</th>
                                             <th>Status</th>
+                                            {{--<th>Option</th>--}}
                                         </tr>
                                     </thead>
 
@@ -74,6 +75,7 @@ Regions
                                             <td>{{ $booking->message }}</td>
                                             <td>{{ date("j M Y",strtotime($booking->created_at)) }} </td>
                                             <td>{{ $booking->status!=1?'failed':'sent' }}</td>
+                                            {{--<td> <a href="{!! URL::to('admin/bookings/'.$booking->id.'/delete') !!}">[ delete ]</a></td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>

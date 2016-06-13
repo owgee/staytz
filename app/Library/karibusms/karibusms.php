@@ -87,7 +87,7 @@ class karibusms {
         'name' => $name,
         'api_key' => API_KEY
         );
-        return $this->curl($fields);
+        return ($this->curl($fields));
     }
 
     /**

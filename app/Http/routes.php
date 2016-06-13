@@ -92,7 +92,7 @@ Route::group(['middleware' => ['web']], function () {
 
 		Route::group(array('prefix' => 'bookings', 'middleware' => 'SentinelAdmin'), function () {
 	        Route::get('/', array('as' => 'bookings', 'uses' => 'BookingController@index'));
-			//Route::get('/{id}/delete', array('as' => 'bookings/delete', 'uses' => 'BookingController@delete'));
+			Route::get('/{id}/delete', array('as' => 'bookings/delete', 'uses' => 'BookingController@delete'));
 		});
 
 		# Error pages should be shown without requiring login

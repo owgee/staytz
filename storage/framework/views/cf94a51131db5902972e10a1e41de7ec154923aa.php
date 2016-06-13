@@ -50,7 +50,7 @@
                         <ul class="list-inline icon-position">
                             <li>
                                 <a href="mailto:"><i class="livicon" data-name="mail" data-size="20" data-loop="true" data-c="#303F9F" data-hc="#fff"></i></a>
-                                <label class="hidden-xs"><a href="mailto:chasmacha@gmail.com" style="color: #303F9F;">chasmacha@gmail.com</a></label>
+                                <label class="hidden-xs"><a href="mailto:info@staytz.inetstz.com" style="color: #303F9F;">info@staytz.inetstz.com</a></label>
                             </li>
                             <li>
                                 <a href="tel:"><i class="livicon" data-name="phone" data-size="20" data-loop="true" data-c="#303F9F" data-hc="#fff"></i></a>
@@ -79,10 +79,10 @@
             <div class="col-sm-4" align="center">
                 <h4>Our contacts: </h4>
                 <ul class="list-unstyled">
-                    <li>Mikocheni B, Dar es Salaam, Tz.</li>
+                    <li>Kijichi, Dar es Salaam, Tz.</li>
                     <li><i class="livicon icon4 icon3" data-name="cellphone" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i>Phone: +255 713 401 868</li>
                     <li><i class="livicon icon3" data-name="mail-alt" data-size="20" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Email:<span class="text-success">
-                        chasmacha@gmail.com</span>
+                        info@staytz.inetstz.com</span>
                     </li>
                 </ul>
             </div>

@@ -21,14 +21,18 @@ Home
     <!--Carousel Start -->
     <div id="owl-demo" class="owl-carousel owl-theme" style="background-color: #303F9F;">
         <div class="item" align="center">
-            <img src="<?php echo e(asset('assets/images/slide1.png')); ?>" style="height:auto;width:270px; margin-top: 10px;" alt="slider-image">
+            <img src="<?php echo e(asset('assets/images/slide1.png')); ?>" style="height:auto;width:350px; margin-top: 10px;" alt="slider-image">
             <div class="carousel-caption">
                 <h2 style="color: #333;"></h2>
             </div>
         </div>
-        <div class="item" align="center"><img src="<?php echo e(asset('assets/images/slide2.png')); ?>" style="height:auto;width:270px; margin-top: 10px;" alt="slider-image">
+        <div class="item" align="center"><img src="<?php echo e(asset('assets/images/slide2.png')); ?>" style="height:auto;width:350px; margin-top: 10px;" alt="slider-image">
         </div>
-        <div class="item" align="center"><img src="<?php echo e(asset('assets/images/slide3.png')); ?>" style="height:auto;width:270px; margin-top: 10px;" alt="slider-image">
+        <div class="item" align="center"><img src="<?php echo e(asset('assets/images/slide3.png')); ?>" style="height:auto;width:350px; margin-top: 10px;" alt="slider-image">
+        </div>
+        <div class="item" align="center"><img src="<?php echo e(asset('assets/images/slide4.png')); ?>" style="height:auto;width:350px; margin-top: 10px;" alt="slider-image">
+        </div>
+        <div class="item" align="center"><img src="<?php echo e(asset('assets/images/slide5.png')); ?>" style="height:auto;width:350px; margin-top: 10px;" alt="slider-image">
         </div>
     </div>
     <!-- //Carousel End -->

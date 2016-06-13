@@ -217,10 +217,12 @@ class Application extends Controller
                 $booking->status=1;
                 $booking->save();
                 $karibu_sms->send_sms($user_phone_no,$txt);
-                return ["response"=>"ok","content"=>"success"];
+               return ["response"=>"ok","content"=>"success"];
+
+
             }else{
                 $booking->save();
-                return ["response"=>"failed","content"=>"failed"];
+                return ["response"=>"failed","content"=>"failed","sms"=>$karibu_sms->send_sms($user_phone_no,$txt)];
             }
         }
         $booking->status=10;
@@ -228,6 +230,13 @@ class Application extends Controller
         return ["response"=>"failed","content"=>"failed! Service not supported (no email address)"];
     }
 
+    public function send_message(){
+        $sms = new \karibusms();
+        $sms->set_name('OWDEN');
+        $sms->karibuSMSpro = false;
 
+        return ["sms"=>".".$sms->send_sms('255753867887','Hello there Owden').".","response"=>"ok","content"=>"success"];
+
+    }
 
 }

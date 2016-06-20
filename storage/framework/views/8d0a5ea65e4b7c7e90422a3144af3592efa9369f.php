@@ -73,7 +73,7 @@ Regions
                                             <td><?php echo e($booking->message); ?></td>
                                             <td><?php echo e(date("j M Y",strtotime($booking->created_at))); ?> </td>
                                             <td><?php echo e($booking->status!=1?'failed':'sent'); ?></td>
-                                            <td> <a href="<?php echo URL::to('admin/bookings/'.$booking->id.'/delete'); ?>">[ delete ]</a></td>
+                                            <td> <a href="<?php echo URL::to('admin/bookings/'.$booking->id.'/delete'); ?>">[delete]</a></td>
                                         </tr>
                                     <?php endforeach; ?>
                                     </tbody>

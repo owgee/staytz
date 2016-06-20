@@ -66,6 +66,9 @@ Notifications
                                         <td style="width:13%;text-align: center;" class="view-message text-right">
                                             TIME
                                         </td>
+                                        <td style="width:13%;text-align: center;" class="view-message text-right">
+                                            Option
+                                        </td>
                                     </tr>
                                     <?php foreach($notifications as $n): ?>
                                         <tr data-messageid="4">
@@ -73,6 +76,7 @@ Notifications
                                             <td class="view-message hidden-xs"><?php echo e($n->title); ?></td>
                                             <td class="view-message"><?php echo e($n->message); ?></td>
                                             <td class="view-message text-right"><?php echo e(date("d M Y",strtotime($n->date_added))); ?></td>
+                                            <td> <a href="<?php echo URL::to('admin/notifications/'.$n->id.'/delete'); ?>">[delete]</a></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

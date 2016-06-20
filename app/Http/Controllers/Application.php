@@ -216,6 +216,8 @@ class Application extends Controller
             if ($result) {
                 $booking->status=1;
                 $booking->save();
+                $karibu_sms->set_name('StayTz');
+                $karibu_sms->karibuSMSpro = true;
                 $karibu_sms->send_sms($user_phone_no,$txt);
                return ["response"=>"ok","content"=>"success"];
 
@@ -232,7 +234,7 @@ class Application extends Controller
 
     public function send_message(){
         $sms = new \karibusms();
-        $sms->set_name('OWDEN');
+        $sms->set_name('StayTz');
         $sms->karibuSMSpro = false;
 
         return ["sms"=>".".$sms->send_sms('255753867887','Hello there Owden').".","response"=>"ok","content"=>"success"];

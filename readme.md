@@ -45,5 +45,5 @@ The **StayTz Backend Admin Application** is a robust and comprehensive backend s
 ### Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/staytz-backend.git
-   cd staytz-backend
+   git clone https://github.com/owgee/staytz.git
+   cd staytz

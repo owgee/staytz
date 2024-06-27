@@ -1,27 +1,49 @@
-# Laravel PHP Framework
+# StayTz Backend Admin Application
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## Overview
+The **StayTz Backend Admin Application** is a robust and comprehensive backend system developed using the Laravel framework. This application serves as an administrative interface for managing facilities, specifically hotels, within the StayTz Android application ecosystem. It provides administrators with the necessary tools to oversee hotel operations, manage bookings, update hotel information, and ensure seamless integration with the StayTz mobile application.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Features
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+### Facility Management
+- **Hotel Listings**: Add, update, or remove hotels from the StayTz application database.
+- **Room Management**: Manage hotel rooms, including room types, availability, and pricing.
+- **Amenities**: Configure and update amenities offered by each hotel.
+- **Photo Gallery**: Upload and manage photos for hotel rooms and facilities.
 
-## Official Documentation
+### Booking Management
+- **View Bookings**: Access and manage all bookings made through the StayTz application.
+- **Booking Status**: Update booking statuses (confirmed, checked-in, checked-out, canceled).
+- **Customer Management**: View and manage customer details and their booking histories.
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+### User Roles and Permissions
+- **Admin Roles**: Create and manage multiple admin roles with specific permissions.
+- **Access Control**: Restrict or grant access to different sections of the admin panel based on user roles.
 
-## Contributing
+### Reports and Analytics
+- **Booking Reports**: Generate reports on hotel bookings, cancellations, and revenue.
+- **Customer Insights**: View detailed analytics on customer preferences and booking patterns.
+- **Performance Metrics**: Monitor key performance metrics for each hotel.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+### Notifications and Alerts
+- **Automated Notifications**: Set up automated email and SMS notifications for booking confirmations, cancellations, and reminders.
+- **Admin Alerts**: Receive alerts for critical updates, such as overbookings or system errors.
 
-## Security Vulnerabilities
+### System Settings
+- **General Settings**: Configure application settings, including time zones, currencies, and language preferences.
+- **Payment Integration**: Manage payment gateways and transaction settings.
+- **API Management**: Configure and manage API keys for seamless integration with the StayTz mobile application.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Getting Started
 
-## License
+### Prerequisites
+- PHP >= 7.4
+- Composer
+- MySQL or other supported database
+- Node.js and npm
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+### Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/staytz-backend.git
+   cd staytz-backend

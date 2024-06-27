@@ -37,7 +37,7 @@ The **StayTz Backend Admin Application** is a robust and comprehensive backend s
 ## Getting Started
 
 ### Prerequisites
-- PHP >= 7.4
+- PHP >=5.5.9
 - Composer
 - MySQL or other supported database
 - Node.js and npm
